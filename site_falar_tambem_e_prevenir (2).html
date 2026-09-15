@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Falar Também é Prevenir</title>
+  <meta name="description" content="Campanha educativa sobre prevenção, informação e diálogo no ambiente escolar.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Montserrat:wght@700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #5b4bdb;
+      --primary-dark: #4334b8;
+      --secondary: #18a999;
+      --ink: #182033;
+      --muted: #647086;
+      --bg: #f7f8fc;
+      --card: #ffffff;
+      --line: #e5e8f0;
+      --shadow: 0 18px 50px rgba(36, 42, 77, .10);
+      --radius: 22px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: Inter, sans-serif;
+      color: var(--ink);
+      background: var(--bg);
+      line-height: 1.6;
+    }
+    a { color: inherit; text-decoration: none; }
+    button, input, textarea { font: inherit; }
+
+    .topbar {
+      background: var(--ink);
+      color: white;
+      text-align: center;
+      padding: 9px 16px;
+      font-size: .82rem;
+      letter-spacing: .02em;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: rgba(255,255,255,.94);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(229,232,240,.8);
+    }
+    .nav {
+      max-width: 1180px;
+      margin: auto;
+      min-height: 76px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 22px;
+      gap: 20px;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      font-weight: 800;
+    }
+    .brand-mark {
+      width: 42px;
+      height: 42px;
+      border-radius: 13px;
+      display: grid;
+      place-items: center;
+      color: white;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      font-weight: 800;
+      font-size: 1.1rem;
+    }
+    nav ul {
+      display: flex;
+      gap: 24px;
+      list-style: none;
+      font-size: .92rem;
+      font-weight: 600;
+    }
+    nav a:hover { color: var(--primary); }
+    .menu-btn {
+      display: none;
+      border: 0;
+      background: #eef0f8;
+      border-radius: 12px;
+      padding: 10px 12px;
+      cursor: pointer;
+    }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(135deg, #f2f0ff 0%, #f8fffd 100%);
+    }
+    .hero::before, .hero::after {
+      content: "";
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(2px);
+      opacity: .45;
+    }
+    .hero::before {
+      width: 330px; height: 330px;
+      background: #d9d3ff;
+      right: -90px; top: -100px;
+    }
+    .hero::after {
+      width: 250px; height: 250px;
+      background: #c8f2ea;
+      left: -90px; bottom: -120px;
+    }
+    .hero-inner {
+      max-width: 1180px;
+      margin: auto;
+      min-height: 610px;
+      padding: 90px 22px 75px;
+      display: grid;
+      grid-template-columns: 1.1fr .9fr;
+      align-items: center;
+      gap: 60px;
+      position: relative;
+      z-index: 1;
+    }
+    .eyebrow {
+      display: inline-flex;
+      padding: 8px 13px;
+      border-radius: 999px;
+      background: white;
+      color: var(--primary);
+      font-weight: 800;
+      font-size: .78rem;
+      margin-bottom: 20px;
+      box-shadow: 0 8px 25px rgba(50,50,90,.07);
+    }
+    h1, h2, h3 { font-family: Montserrat, Inter, sans-serif; line-height: 1.12; }
+    h1 { font-size: clamp(2.7rem, 6vw, 5.2rem); max-width: 700px; letter-spacing: -.045em; }
+    .gradient-text {
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    .hero p {
+      margin-top: 22px;
+      color: var(--muted);
+      font-size: 1.08rem;
+      max-width: 630px;
+    }
+    .actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      border: 0;
+      border-radius: 13px;
+      padding: 13px 18px;
+      font-weight: 800;
+      cursor: pointer;
+      transition: .2s ease;
+    }
+    .btn:hover { transform: translateY(-2px); }
+    .btn-primary { background: var(--primary); color: white; box-shadow: 0 12px 24px rgba(91,75,219,.22); }
+    .btn-secondary { background: white; color: var(--ink); border: 1px solid var(--line); }
+
+    .hero-card {
+      background: white;
+      border-radius: 30px;
+      padding: 32px;
+      box-shadow: var(--shadow);
+      transform: rotate(2deg);
+      border: 1px solid rgba(255,255,255,.8);
+    }
+    .hero-card .bubble {
+      background: #f3f1ff;
+      padding: 18px;
+      border-radius: 18px 18px 18px 5px;
+      margin-bottom: 14px;
+    }
+    .hero-card .bubble.green {
+      background: #e9faf6;
+      border-radius: 18px 18px 5px 18px;
+      margin-left: 35px;
+    }
+    .hero-card strong { display: block; margin-bottom: 4px; }
+    .hero-card small { color: var(--muted); }
+
+    section { padding: 88px 22px; }
+    .container { max-width: 1080px; margin: auto; }
+    .section-head { max-width: 720px; margin-bottom: 38px; }
+    .section-head span {
+      color: var(--primary);
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .12em;
+      font-size: .75rem;
+    }
+    .section-head h2 { font-size: clamp(2rem, 4vw, 3rem); margin-top: 8px; }
+    .section-head p { color: var(--muted); margin-top: 13px; }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+    .card {
+      background: var(--card);
+      padding: 28px;
+      border-radius: var(--radius);
+      border: 1px solid var(--line);
+      box-shadow: 0 10px 35px rgba(35,42,80,.05);
+    }
+    .icon {
+      width: 50px; height: 50px;
+      display: grid; place-items: center;
+      border-radius: 15px;
+      background: #f0efff;
+      font-size: 1.35rem;
+      margin-bottom: 18px;
+    }
+    .card h3 { font-size: 1.2rem; margin-bottom: 8px; }
+    .card p { color: var(--muted); font-size: .94rem; }
+
+    .quote {
+      margin-top: 28px;
+      padding: 28px 32px;
+      border-radius: 22px;
+      background: var(--ink);
+      color: white;
+      font-size: 1.3rem;
+      font-weight: 700;
+      text-align: center;
+    }
+
+    .project {
+      background: #11172a;
+      color: white;
+    }
+    .project-grid {
+      display: grid;
+      grid-template-columns: .9fr 1.1fr;
+      gap: 50px;
+      align-items: center;
+    }
+    .project .section-head p { color: #b9c0d2; }
+    .steps { display: grid; gap: 14px; }
+    .step {
+      display: flex;
+      gap: 15px;
+      align-items: flex-start;
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.08);
+      padding: 18px;
+      border-radius: 17px;
+    }
+    .number {
+      min-width: 34px; height: 34px;
+      display: grid; place-items: center;
+      border-radius: 50%;
+      background: white;
+      color: var(--ink);
+      font-weight: 800;
+    }
+    .step p { color: #c1c8d7; font-size: .9rem; margin-top: 3px; }
+
+    .faq { display: grid; gap: 12px; }
+    details {
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: 17px;
+      padding: 18px 20px;
+    }
+    summary { cursor: pointer; font-weight: 800; }
+    details p { color: var(--muted); margin-top: 12px; }
+
+    .help {
+      background: linear-gradient(135deg, #eeecff, #e9faf6);
+    }
+    .help-box {
+      background: white;
+      border-radius: 28px;
+      padding: 38px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 35px;
+      box-shadow: var(--shadow);
+    }
+    .help-box p { color: var(--muted); margin-top: 12px; }
+    .help-list { display: grid; gap: 12px; }
+    .help-item {
+      padding: 17px;
+      border: 1px solid var(--line);
+      border-radius: 15px;
+      background: #fafbfe;
+    }
+    .help-item strong { display: block; }
+    .help-item span { color: var(--muted); font-size: .88rem; }
+
+    .question-wrap {
+      display: grid;
+      grid-template-columns: .8fr 1.2fr;
+      gap: 40px;
+      align-items: start;
+    }
+    form {
+      background: white;
+      border: 1px solid var(--line);
+      padding: 28px;
+      border-radius: 22px;
+      box-shadow: 0 10px 35px rgba(35,42,80,.05);
+    }
+    label { display: block; font-weight: 700; font-size: .88rem; margin: 15px 0 7px; }
+    input, textarea {
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 12px 13px;
+      outline: none;
+      background: #fafbfe;
+    }
+    input:focus, textarea:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(91,75,219,.10); }
+    textarea { min-height: 130px; resize: vertical; }
+    .form-note { color: var(--muted); font-size: .78rem; margin-top: 12px; }
+    #form-message { display: none; margin-top: 13px; color: #087f70; font-weight: 700; }
+
+    footer {
+      background: #0c1020;
+      color: #aeb5c6;
+      padding: 35px 22px;
+    }
+    .footer-inner {
+      max-width: 1080px; margin: auto;
+      display: flex; justify-content: space-between; gap: 20px;
+      flex-wrap: wrap;
+    }
+    footer strong { color: white; }
+    .back-top {
+      border: 1px solid #343b50;
+      background: transparent;
+      color: white;
+      border-radius: 10px;
+      padding: 9px 12px;
+      cursor: pointer;
+    }
+
+    .toast {
+      position: fixed;
+      right: 20px;
+      bottom: 20px;
+      background: var(--ink);
+      color: white;
+      padding: 13px 17px;
+      border-radius: 13px;
+      box-shadow: var(--shadow);
+      transform: translateY(130px);
+      transition: .3s;
+      z-index: 50;
+      font-size: .9rem;
+    }
+    .toast.show { transform: translateY(0); }
+
+    @media (max-width: 850px) {
+      nav ul {
+        display: none;
+        position: absolute;
+        top: 76px; left: 0; right: 0;
+        background: white;
+        padding: 18px 22px 24px;
+        border-bottom: 1px solid var(--line);
+        flex-direction: column;
+      }
+      nav ul.open { display: flex; }
+      .menu-btn { display: block; }
+      .hero-inner, .project-grid, .help-box, .question-wrap { grid-template-columns: 1fr; }
+      .hero-inner { padding-top: 60px; }
+      .hero-card { transform: none; max-width: 560px; }
+      .cards { grid-template-columns: 1fr; }
+      section { padding: 65px 18px; }
+    }
+    @media (max-width: 500px) {
+      h1 { font-size: 2.7rem; }
+      .actions .btn { width: 100%; }
+      .help-box, form { padding: 24px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="topbar">Campanha educativa • Informação • Diálogo • Prevenção</div>
+
+  <header>
+    <div class="nav">
+      <a class="brand" href="#inicio" aria-label="Página inicial">
+        <span class="brand-mark">FP</span>
+        <span>Falar Também é Prevenir</span>
+      </a>
+      <button class="menu-btn" id="menuBtn" aria-label="Abrir menu">☰</button>
+      <nav>
+        <ul id="menu">
+          <li><a href="#inicio">Início</a></li>
+          <li><a href="#entenda">Entenda</a></li>
+          <li><a href="#projeto">Projeto</a></li>
+          <li><a href="#duvidas">Dúvidas</a></li>
+          <li><a href="#ajuda">Ajuda</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="inicio">
+    <section class="hero">
+      <div class="hero-inner">
+        <div>
+          <span class="eyebrow">UMA CAMPANHA PARA A ESCOLA</span>
+          <h1>Falar também é <span class="gradient-text">prevenir.</span></h1>
+          <p>
+            Conversar sobre drogas com responsabilidade ajuda a ampliar a informação,
+            combater dúvidas e fortalecer a prevenção. A escola pode ser um espaço
+            seguro para ouvir, orientar e refletir.
+          </p>
+          <div class="actions">
+            <a class="btn btn-primary" href="#entenda">Entender a campanha →</a>
+            <a class="btn btn-secondary" href="#duvidas">Tenho uma dúvida</a>
+          </div>
+        </div>
+
+        <div class="hero-card" aria-label="Mensagem principal da campanha">
+          <div class="bubble">
+            <strong>💬 Informação</strong>
+            <small>Conhecer os riscos ajuda a tomar decisões mais conscientes.</small>
+          </div>
+          <div class="bubble green">
+            <strong>🤝 Diálogo</strong>
+            <small>Conversar sem julgamentos pode facilitar a busca por orientação.</small>
+          </div>
+          <div class="bubble">
+            <strong>🛡️ Prevenção</strong>
+            <small>Prevenir também é saber quando e com quem pedir ajuda.</small>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="entenda">
+      <div class="container">
+        <div class="section-head">
+          <span>Entenda</span>
+          <h2>Por que conversar sobre esse assunto?</h2>
+          <p>
+            Falar sobre drogas não significa incentivar o uso. Uma abordagem educativa
+            pode ajudar a esclarecer dúvidas, apresentar riscos e fortalecer redes de apoio.
+          </p>
+        </div>
+
+        <div class="cards">
+          <article class="card">
+            <div class="icon">🧠</div>
+            <h3>Informação</h3>
+            <p>Informações confiáveis ajudam a diferenciar fatos de mitos e a compreender as consequências relacionadas ao tema.</p>
+          </article>
+          <article class="card">
+            <div class="icon">💬</div>
+            <h3>Diálogo</h3>
+            <p>Um espaço de conversa respeitoso permite que estudantes expressem dúvidas e preocupações sem medo de julgamento.</p>
+          </article>
+          <article class="card">
+            <div class="icon">🛡️</div>
+            <h3>Prevenção</h3>
+            <p>Prevenir envolve orientação, cuidado e acesso a pessoas preparadas para ajudar em situações de risco.</p>
+          </article>
+        </div>
+
+        <div class="quote">“Não tenha medo de perguntar. Conversar também é uma forma de cuidar.”</div>
+      </div>
+    </section>
+
+    <section class="project" id="projeto">
+      <div class="container project-grid">
+        <div class="section-head">
+          <span style="color:#9f95ff;">O projeto</span>
+          <h2>Quando os estudantes participam, a conversa ganha outra força.</h2>
+          <p>
+            A reportagem que inspirou esta campanha apresenta oficinas de vídeo nas quais
+            estudantes participam da discussão sobre a temática das drogas. O audiovisual
+            é usado como ferramenta de expressão, reflexão e trabalho coletivo.
+          </p>
+        </div>
+
+        <div class="steps">
+          <div class="step">
+            <span class="number">1</span>
+            <div><strong>Pesquisar</strong><p>Buscar informações e compreender o tema com responsabilidade.</p></div>
+          </div>
+          <div class="step">
+            <span class="number">2</span>
+            <div><strong>Conversar</strong><p>Trocar ideias, dúvidas e percepções em um ambiente de respeito.</p></div>
+          </div>
+          <div class="step">
+            <span class="number">3</span>
+            <div><strong>Criar</strong><p>Transformar a reflexão em vídeos, campanhas e outros conteúdos educativos.</p></div>
+          </div>
+          <div class="step">
+            <span class="number">4</span>
+            <div><strong>Compartilhar</strong><p>Levar informação e conscientização para mais estudantes.</p></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="duvidas">
+      <div class="container">
+        <div class="section-head">
+          <span>Dúvidas</span>
+          <h2>Você tem uma pergunta?</h2>
+          <p>Use o formulário como uma atividade educativa. Não coloque nome, telefone, endereço ou outras informações pessoais.</p>
+        </div>
+
+        <div class="question-wrap">
+          <div>
+            <div class="faq">
+              <details>
+                <summary>Falar sobre drogas na escola é incentivar?</summary>
+                <p>Não. Uma abordagem responsável busca informar, prevenir, esclarecer dúvidas e orientar os estudantes.</p>
+              </details>
+              <details>
+                <summary>Por que o diálogo é importante?</summary>
+                <p>Porque permite que dúvidas e preocupações sejam discutidas com mais segurança e que o estudante saiba onde buscar orientação.</p>
+              </details>
+              <details>
+                <summary>Quem pode ajudar?</summary>
+                <p>Um adulto de confiança, familiares, professores, orientadores e profissionais de saúde podem ajudar a encaminhar uma situação.</p>
+              </details>
+            </div>
+          </div>
+
+          <form id="questionForm">
+            <label for="question">Sua pergunta</label>
+            <textarea id="question" required placeholder="Escreva sua pergunta aqui..."></textarea>
+            <button class="btn btn-primary" type="submit" style="margin-top:15px;width:100%;">Enviar pergunta</button>
+            <p class="form-note">Este formulário é apenas uma demonstração para o trabalho escolar e não envia dados para um servidor.</p>
+            <p id="form-message">✓ Pergunta registrada apenas nesta demonstração.</p>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <section class="help" id="ajuda">
+      <div class="container">
+        <div class="help-box">
+          <div>
+            <div class="section-head" style="margin-bottom:0;">
+              <span>Procure ajuda</span>
+              <h2>Você não precisa lidar com tudo sozinho.</h2>
+              <p>
+                Se você ou alguém próximo estiver enfrentando uma situação relacionada
+                ao uso de drogas, procure um adulto de confiança ou um profissional
+                preparado para orientar.
+              </p>
+            </div>
+          </div>
+          <div class="help-list">
+            <div class="help-item">
+              <strong>👨‍👩‍👧 Família ou adulto de confiança</strong>
+              <span>Converse com alguém que possa ouvir e ajudar a buscar orientação.</span>
+            </div>
+            <div class="help-item">
+              <strong>🏫 Escola</strong>
+              <span>Procure um professor, orientador ou outro profissional responsável.</span>
+            </div>
+            <div class="help-item">
+              <strong>🏥 Profissional de saúde</strong>
+              <span>Em situações que envolvam saúde, procure atendimento e orientação profissional.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container" style="text-align:center;">
+        <div class="section-head" style="margin:0 auto;">
+          <span>Mensagem final</span>
+          <h2>Informação pode fazer a diferença.</h2>
+          <p>Falar. Ouvir. Orientar. Prevenir.</p>
+        </div>
+        <div class="actions" style="justify-content:center;">
+          <a class="btn btn-primary" href="#inicio">Voltar ao início ↑</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+      <div><strong>Falar Também é Prevenir</strong><br>Campanha educativa escolar.</div>
+      <div>Produzido para fins acadêmicos.</div>
+      <button class="back-top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑ Início</button>
+    </div>
+  </footer>
+
+  <div class="toast" id="toast">Mensagem enviada nesta demonstração.</div>
+
+  <script>
+    const menuBtn = document.getElementById('menuBtn');
+    const menu = document.getElementById('menu');
+
+    menuBtn.addEventListener('click', () => {
+      menu.classList.toggle('open');
+    });
+
+    document.querySelectorAll('#menu a').forEach(link => {
+      link.addEventListener('click', () => menu.classList.remove('open'));
+    });
+
+    const form = document.getElementById('questionForm');
+    const message = document.getElementById('form-message');
+    const toast = document.getElementById('toast');
+
+    form.addEventListener('submit', (event) => {
+      event.preventDefault();
+      if (!form.checkValidity()) return;
+      message.style.display = 'block';
+      form.reset();
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 2800);
+    });
+
+    // Pequena animação de entrada ao rolar.
+    const revealItems = document.querySelectorAll('.card, .step, details, .help-item, .hero-card');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.animate(
+            [
+              { opacity: 0, transform: 'translateY(16px)' },
+              { opacity: 1, transform: 'translateY(0)' }
+            ],
+            { duration: 500, easing: 'ease-out', fill: 'forwards' }
+          );
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+
+    revealItems.forEach(item => observer.observe(item));
+  </script>
+</body>
+</html>
